@@ -1,23 +1,119 @@
-# multi-template
+# Kotlin Spring Boot Multi-Module Template
 
-This project uses [Gradle](https://gradle.org/).
-To build and run the application, use the *Gradle* tool window by clicking the Gradle icon in the right-hand toolbar,
-or run it directly from the terminal:
+[![Gradle Build Scan](https://img.shields.io/badge/Gradle%20Build%20Scan-%E2%9E%9A-blue?logo=gradle)](https://gradle.com/terms-of-service)
 
-* Run `./gradlew run` to build and run the application.
-* Run `./gradlew build` to only build the application.
-* Run `./gradlew check` to run all checks, including tests.
-* Run `./gradlew clean` to clean all build outputs.
+A Kotlin Spring Boot multi-module application template built with Gradle.
 
-Note the usage of the Gradle Wrapper (`./gradlew`).
-This is the suggested way to use Gradle in production projects.
+## ✨ Features
 
-[Learn more about the Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html).
+*   **Language**: Kotlin (JVM 17)
+*   **Framework**: Spring Boot 3.x
+*   **Architecture**: Multi-module
+*   **Build System**: Gradle (Kotlin DSL)
 
-[Learn more about Gradle tasks](https://docs.gradle.org/current/userguide/command_line_interface.html#common_tasks).
+## 🏗️ Project Structure
 
-This project follows the suggested multi-module setup and consists of the `app` and `utils` subprojects.
-The shared build logic was extracted to a convention plugin located in `buildSrc`.
+*   `buildSrc`: Shared build logic and convention plugins
+*   `:frameworks`: Core classes, utilities, and configurations
+*   `:services`: Aggregator module for business services
+*   `:services:aggregation`: Example Spring Boot Web application
+*   `:tests`: Integration and end-to-end tests
 
-This project uses a version catalog (see `gradle/libs.versions.toml`) to declare and version dependencies
-and both a build cache and a configuration cache (see `gradle.properties`).
+## 🚀 Getting Started
+
+### Prerequisites
+
+*   JDK 17+
+*   Git
+
+### Build
+
+```bash
+./gradlew build
+```
+
+### Run
+
+```bash
+# Run application
+./gradlew :services:aggregation:bootRun
+
+# Build and run JAR
+./gradlew :services:aggregation:build
+java -jar services/aggregation/build/libs/aggregation-0.0.1-SNAPSHOT.jar
+```
+
+### Test
+
+```bash
+./gradlew test
+```
+
+## 🤝 Contributing
+
+Welcome to submit issues or pull requests.
+
+## 📄 License
+
+(Add your license here)
+
+---
+
+# Kotlin Spring Boot 多模块模板
+
+[![Gradle Build Scan](https://img.shields.io/badge/Gradle%20Build%20Scan-%E2%9E%9A-blue?logo=gradle)](https://gradle.com/terms-of-service)
+
+使用 Gradle 构建的 Kotlin Spring Boot 多模块应用模板。
+
+## ✨ 特性
+
+*   **语言**: Kotlin (JVM 17)
+*   **框架**: Spring Boot 3.x
+*   **架构**: 多模块
+*   **构建系统**: Gradle (Kotlin DSL)
+
+## 🏗️ 项目结构
+
+*   `buildSrc`: 共享构建逻辑和约定插件
+*   `:frameworks`: 核心类、工具和配置
+*   `:services`: 业务服务聚合模块
+*   `:services:aggregation`: Spring Boot Web 应用示例
+*   `:tests`: 集成和端到端测试
+
+## 🚀 开始使用
+
+### 先决条件
+
+*   JDK 17+
+*   Git
+
+### 构建
+
+```bash
+./gradlew build
+```
+
+### 运行
+
+```bash
+# 运行应用
+./gradlew :services:aggregation:bootRun
+
+# 构建并运行 JAR
+./gradlew :services:aggregation:build
+java -jar services/aggregation/build/libs/aggregation-0.0.1-SNAPSHOT.jar
+```
+
+### 测试
+
+```bash
+./gradlew test
+```
+
+## 🤝 贡献
+
+欢迎提交 Issue 或 Pull Request。
+
+## 📄 许可证
+
+(在此添加许可证信息)
