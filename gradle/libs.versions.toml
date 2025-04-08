@@ -1,0 +1,67 @@
+# Gradle 版本目录 (Version Catalog)
+# 用于集中管理项目依赖项和插件的版本，提高可维护性和一致性。
+# 参考文档:
+# https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+########################################################################################################################
+[versions]
+spring-boot = "3.0.7"
+spring-cloud = "2022.0.3"
+spring-cloud-alibaba = "2022.0.0.0-RC2"
+mybatis-spring-boot = "3.0.2"
+shardingsphere = "5.3.2"
+jjwt = "0.9.1"
+fastjson2 = "2.0.36"
+mybatis-plus = "3.5.9"
+dozer-core = "6.5.2"
+hutool-all = "5.8.27"
+redisson = "3.21.3"
+guava = "30.0-jre"
+xxl-job = "2.3.1"
+alipay-sdk = "4.38.10.ALL"
+rocketmq-spring = "2.2.3"
+transmittable-thread-local = "2.14.2"
+hippo4j-threadpool = "1.5.0"
+micrometer-prometheus = "1.10.6"
+skywalking = "9.3.0"
+lombok = "1.18.30"
+kotlin = "1.9.0"
+
+########################################################################################################################
+[libraries]
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+spring-cloud-dependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud" }
+spring-cloud-alibaba-dependencies = { module = "com.alibaba.cloud:spring-cloud-alibaba-dependencies", version.ref = "spring-cloud-alibaba" }
+mybatis-spring-boot-starter = { module = "org.mybatis.spring.boot:mybatis-spring-boot-starter", version.ref = "mybatis-spring-boot" }
+mybatis-plus-boot-starter = { module = "com.baomidou:mybatis-plus-boot-starter", version.ref = "mybatis-plus" }
+mybatis-plus-jsqlparser = { module = "com.baomidou:mybatis-plus-jsqlparser", version.ref = "mybatis-plus" }
+shardingsphere-jdbc-core = { module = "org.apache.shardingsphere:shardingsphere-jdbc-core", version.ref = "shardingsphere" }
+jjwt = { module = "io.jsonwebtoken:jjwt", version.ref = "jjwt" }
+fastjson2 = { module = "com.alibaba.fastjson2:fastjson2", version.ref = "fastjson2" }
+dozer-core = { module = "com.github.dozermapper:dozer-core", version.ref = "dozer-core" }
+hutool-all = { module = "cn.hutool:hutool-all", version.ref = "hutool-all" }
+redisson-spring-boot-starter = { module = "org.redisson:redisson-spring-boot-starter", version.ref = "redisson" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+xxl-job-core = { module = "com.xuxueli:xxl-job-core", version.ref = "xxl-job" }
+alipay-sdk-java = { module = "com.alipay.sdk:alipay-sdk-java", version.ref = "alipay-sdk" }
+rocketmq-spring-boot-starter = { module = "org.apache.rocketmq:rocketmq-spring-boot-starter", version.ref = "rocketmq-spring" }
+transmittable-thread-local = { module = "com.alibaba:transmittable-thread-local", version.ref = "transmittable-thread-local" }
+hippo4j-threadpool-config = { module = "cn.hippo4j:hippo4j-config-spring-boot-starter", version.ref = "hippo4j-threadpool" }
+micrometer-prometheus = { module = "io.micrometer:micrometer-registry-prometheus", version.ref = "micrometer-prometheus" }
+skywalking-trace = { module = "org.apache.skywalking:apm-toolkit-trace", version.ref = "skywalking" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+########################################################################################################################
+# Libraries can be bundled together for easier import
+#[bundles]
+#kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
+########################################################################################################################
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.4" }
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
