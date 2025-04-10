@@ -1,6 +1,3 @@
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.getByType
-
 // buildSrc 构建自身的插件管理配置
 // 定义 buildSrc 内部编译约定插件 (.gradle.kts 文件) 时所需的插件及其版本
 pluginManagement {
@@ -16,6 +13,7 @@ pluginManagement {
 		id("io.spring.dependency-management") version "1.1.4"
 		id("org.jetbrains.kotlin.jvm") version "1.9.0"
 		id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
+		id("org.jetbrains.kotlin.plugin.noarg") version "1.9.0"
 	}
 }
 

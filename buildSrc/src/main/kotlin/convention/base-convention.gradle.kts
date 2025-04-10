@@ -5,6 +5,7 @@ import org.gradle.api.JavaVersion // 确保导入这个类
 plugins {
 	// 应用 Kotlin JVM 插件，作为项目的基础（如果所有子项目都是 Kotlin）
 	id("org.jetbrains.kotlin.jvm")
+	id("org.jetbrains.kotlin.plugin.noarg")
 }
 
 // 设置通用的 group

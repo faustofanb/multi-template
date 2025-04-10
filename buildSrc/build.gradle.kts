@@ -31,4 +31,5 @@ dependencies {
 	implementation("io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:1.1.4")
 	// Kotlin All-Open 插件
 	implementation("org.jetbrains.kotlin:kotlin-allopen:1.9.0")
+	implementation("org.jetbrains.kotlin.plugin.noarg:org.jetbrains.kotlin.plugin.noarg.gradle.plugin:1.9.0")
 }
