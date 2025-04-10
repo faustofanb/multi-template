@@ -41,7 +41,7 @@ data class CommonResp<T>(
          * 应用程序错误响应
          */
         fun appError(exception: AppException): CommonResp<Nothing> =
-            CommonResp(exception.code, exception.message!!, null)
+            CommonResp(exception.code, exception.message, null)
 
         /**
          * 从Result创建响应

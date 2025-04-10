@@ -95,12 +95,10 @@ class CommonRespTest {
     fun `test error response`() {
         val code = "TEST_ERROR"
         val message = "测试错误"
-        val data = "错误数据"
-        val resp = CommonResp.error(code, message, data)
+        val resp = CommonResp.error(code, message)
         
         assertEquals(code, resp.code)
         assertEquals(message, resp.message)
-        assertEquals(data, resp.data)
     }
 
     @Test
@@ -123,7 +121,7 @@ class CommonRespTest {
 
     @Test
     fun `test unwrap error`() {
-        val resp = CommonResp.error("TEST_ERROR", "测试错误", null)
+        val resp = CommonResp.error("TEST_ERROR", "测试错误")
         
         assertThrows(IllegalStateException::class.java) {
             resp.unwrap()
@@ -141,7 +139,7 @@ class CommonRespTest {
 
     @Test
     fun `test unwrapOr error`() {
-        val resp = CommonResp.error<String>("TEST_ERROR", "测试错误", null)
+        val resp  = CommonResp.error("TEST_ERROR", "测试错误") as CommonResp<String>
         val default = "默认数据"
         
         assertEquals(default, resp.unwrapOr(default))
@@ -157,7 +155,7 @@ class CommonRespTest {
 
     @Test
     fun `test unwrapOrElse error`() {
-        val resp = CommonResp.error<String>("TEST_ERROR", "测试错误", null)
+        val resp = CommonResp.error("TEST_ERROR", "测试错误") as CommonResp<String>
         
         assertEquals("默认数据", resp.unwrapOrElse { "默认数据" })
     }
@@ -172,7 +170,7 @@ class CommonRespTest {
 
     @Test
     fun `test unwrapOrNull error`() {
-        val resp = CommonResp.error("TEST_ERROR", "测试错误", null)
+        val resp = CommonResp.error("TEST_ERROR", "测试错误")
         
         assertNull(resp.unwrapOrNull())
     }

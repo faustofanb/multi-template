@@ -2,7 +2,6 @@ package faustofan.app.framework.web.handler
 
 import faustofan.app.framework.web.context.RequestContext
 import faustofan.app.framework.web.result.CommonResp
-import jakarta.servlet.http.HttpServletRequest
 import org.springframework.core.MethodParameter
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter
@@ -41,10 +40,6 @@ class ResponseBodyAdvice : ResponseBodyAdvice<Any> {
         if (body is CommonResp<*>) {
             return body
         }
-
-        // 获取请求路径
-        val servletRequest = (request as ServletServerHttpRequest).servletRequest
-        val path = servletRequest.requestURI
 
         // 获取请求ID
         val requestId = RequestContext.getRequestId()

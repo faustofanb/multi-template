@@ -1,6 +1,5 @@
 // Base convention plugin providing common configurations for all subprojects.
 // Includes group, version, Java/Kotlin toolchains, and dependency resolution strategies.
-import org.gradle.api.JavaVersion // 确保导入这个类
 
 plugins {
 	// 应用 Kotlin JVM 插件，作为项目的基础（如果所有子项目都是 Kotlin）
