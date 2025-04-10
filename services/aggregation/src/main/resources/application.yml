@@ -1,0 +1,73 @@
+# 应用名称
+spring:
+  application:
+    name: aggregation
+  # --- SQLite 数据源配置 ---
+  datasource:
+    # 数据库文件路径 (将在 services/aggregation/src/main/resources/ 目录下创建 aggregation.db)
+    # 注意：此路径是相对于项目根目录 f:/Project/multi-template 的
+    url: jdbc:sqlite:services/aggregation/src/main/resources/aggregation.db
+    # SQLite JDBC 驱动类
+    driver-class-name: org.sqlite.JDBC
+
+# --- MyBatis-Plus 配置 ---
+mybatis-plus:
+  # mapper XML文件路径
+  mapper-locations: classpath:mapper/*.xml
+  # 配置MyBatis-Plus的全局配置
+  configuration:
+    # 开启驼峰命名自动映射
+    map-underscore-to-camel-case: true
+    # 开启二级缓存
+    cache-enabled: true
+    # 在控制台显示执行的SQL语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 全局配置
+  global-config:
+    # 数据库相关配置
+    db-config:
+      # 主键类型 AUTO:"数据库ID自增"
+      id-type: auto
+      # 逻辑删除配置
+      logic-delete-field: deleted # 逻辑删除字段
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+
+# --- Swagger (Springdoc OpenAPI) 配置 ---
+springdoc:
+  # API 文档路径
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  # Swagger UI 路径
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    # 操作排序方式 (alpha: 按字母顺序, method: 按HTTP方法)
+    operationsSorter: alpha
+    # 标签排序方式 (alpha: 按字母顺序)
+    tagsSorter: alpha
+  # 扫描生成文档的包路径
+  packagesToScan: faustofan.app.services.aggregation
+  # API 文档基本信息
+  info:
+    title: Aggregation Service API
+    description: 聚合服务的API文档，用于测试目的。
+    version: v1.0.0
+  # 默认请求/响应内容类型
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+# --- Knife4j 配置 ---
+knife4j:
+  enable: true
+  setting:
+    language: zh-CN
+    swagger-model-name: 实体类列表
+    enable-footer: false
+    enable-footer-custom: true
+    footer-custom-content: Aggregation Service | Powered by Knife4j
+  documents:
+    - group: default
+      name: 使用手册
+      locations: classpath:markdown/*
