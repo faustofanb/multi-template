@@ -12,7 +12,7 @@ mybatis-spring-boot = "3.0.2"
 shardingsphere = "5.3.2"
 jjwt = "0.9.1"
 fastjson2 = "2.0.36"
-mybatis-plus = "3.5.9"
+mybatis-plus = "3.5.7"
 dozer-core = "6.5.2"
 hutool-all = "5.8.27"
 redisson = "3.21.3"
@@ -26,13 +26,15 @@ micrometer-prometheus = "1.10.6"
 skywalking = "9.3.0"
 lombok = "1.18.30"
 kotlin = "1.9.0"
-
+sqlite-jdbc = "3.45.3.0" # 检查最新稳定版
+knife4j = "4.5.0"
 ########################################################################################################################
 [libraries]
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring-boot" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis", version.ref = "spring-boot" }
 spring-cloud-dependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud" }
 spring-cloud-alibaba-dependencies = { module = "com.alibaba.cloud:spring-cloud-alibaba-dependencies", version.ref = "spring-cloud-alibaba" }
 mybatis-spring-boot-starter = { module = "org.mybatis.spring.boot:mybatis-spring-boot-starter", version.ref = "mybatis-spring-boot" }
@@ -54,7 +56,10 @@ micrometer-prometheus = { module = "io.micrometer:micrometer-registry-prometheus
 skywalking-trace = { module = "org.apache.skywalking:apm-toolkit-trace", version.ref = "skywalking" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-
+# --- 新增库 ---
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-boot" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
+knife4j-spring-boot-starter = { module = "com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter", version.ref = "knife4j" }
 ########################################################################################################################
 # Libraries can be bundled together for easier import
 #[bundles]

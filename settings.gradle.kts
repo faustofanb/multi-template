@@ -48,10 +48,11 @@ rootProject.name = "multi-template"
 
 // frameworks模块
 include(":frameworks")
+include(":frameworks:common")
+include(":frameworks:web")
+
 // services模块
 include(":services")
 include(":services:aggregation")
 // tests模块
 include(":tests")
-
-
