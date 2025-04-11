@@ -1,5 +1,6 @@
 plugins {
     id("framework-convention")
+    id("test-convention")
 }
 
 noArg {
@@ -10,6 +11,3 @@ dependencies {
 
 }
 
-tasks.test {
-    enabled = false
-}
