@@ -1,0 +1,58 @@
+{
+  "groups": [
+    {
+      "name": "framework.cache.redis",
+      "type": "faustofan.app.framework.cache.config.RedisDistributedProperties",
+      "description": "Redis 缓存相关配置，包括缓存键前缀、字符集、超时时间等。"
+    },
+    {
+      "name": "framework.cache.redis.bloom-filter.default",
+      "type": "faustofan.app.framework.cache.config.BloomFilterPenetrateProperties",
+      "description": "布隆过滤器的配置属性，用于防止缓存穿透。"
+    }
+  ],
+  "properties": [
+    {
+      "name": "framework.cache.redis.prefix",
+      "type": "java.lang.String",
+      "description": "缓存键的前缀，默认为空字符串。",
+      "defaultValue": ""
+    },
+    {
+      "name": "framework.cache.redis.prefixCharset",
+      "type": "java.lang.String",
+      "description": "缓存键前缀的字符集，默认为\"UTF-8\"。",
+      "defaultValue": "UTF-8"
+    },
+    {
+      "name": "framework.cache.redis.valueTimeout",
+      "type": "java.lang.Long",
+      "description": "缓存值的超时时间，默认为30000毫秒。",
+      "defaultValue": "30000"
+    },
+    {
+      "name": "framework.cache.redis.valueTimeUnit",
+      "type": "java.util.concurrent.TimeUnit",
+      "description": "超时时间的时间单位，默认为毫秒。",
+      "defaultValue": "MILLISECONDS"
+    },
+    {
+      "name": "framework.cache.redis.bloom-filter.default.name",
+      "type": "java.lang.String",
+      "description": "布隆过滤器的名称，用于标识不同的布隆过滤器实例，默认为\"cache_penetration_bloom_filter\"",
+      "defaultValue": "cache_penetration_bloom_filter"
+    },
+    {
+      "name": "framework.cache.redis.bloom-filter.default.expectedInsertions",
+      "type": "java.lang.Long",
+      "description": "预期插入到布隆过滤器中的条目数量，这个值会影响布隆过滤器的大小和性能，默认为64",
+      "defaultValue": "64"
+    },
+    {
+      "name": "framework.cache.redis.bloom-filter.default.falseProbability",
+      "type": "java.lang.Double",
+      "description": "允许的假阳性概率，值越小过滤越精确但占用空间越大，默认为0.03",
+      "defaultValue": "0.03"
+    }
+  ]
+}
