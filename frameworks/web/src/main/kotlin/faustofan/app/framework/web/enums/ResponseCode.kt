@@ -6,8 +6,8 @@ package faustofan.app.framework.web.enums
  * 编码说明：
  * - 成功：00000
  * - 一级宏观错误码：A/B/C0000
- * - 二级错误码：A/B/C0100
- * - 三级错误码：A/B/C0101
+ * - 二级错误码：A/B/C0X00
+ * - 三级错误码：A/B/C0X0Y
  *
  * 分类说明：
  * - A类：客户端错误，以A开头
