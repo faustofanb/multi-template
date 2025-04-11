@@ -15,6 +15,15 @@ pluginManagement {
 		id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
 		id("org.jetbrains.kotlin.plugin.noarg") version "1.9.0"
 	}
+
+}
+
+dependencyResolutionManagement {
+	versionCatalogs {
+		create("libs") {
+			from(files("../gradle/libs.versions.toml"))
+		}
+	}
 }
 
 // 设置 buildSrc 项目的名称 (通常保持 "buildSrc")

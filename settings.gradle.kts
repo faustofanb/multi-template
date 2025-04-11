@@ -24,8 +24,10 @@ plugins {
 // 集中管理所有项目的依赖解析行为
 dependencyResolutionManagement {
 	// 强制所有项目都使用这里定义的仓库，禁止在子项目 build.gradle.kts 中单独定义仓库
+	@Suppress("UnstableApiUsage")
 	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 	// 定义项目依赖项的查找仓库
+	@Suppress("UnstableApiUsage")
 	repositories {
 		mavenCentral()
 		// 可以在这里添加其他仓库，例如公司私服或镜像
@@ -50,9 +52,14 @@ rootProject.name = "multi-template"
 include(":frameworks")
 include(":frameworks:common")
 include(":frameworks:web")
+include(":frameworks:idempotent")
+include(":frameworks:base")
+include(":frameworks:cache")
+
 
 // services模块
 include(":services")
 include(":services:aggregation")
+
 // tests模块
 include(":tests")

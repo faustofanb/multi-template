@@ -1,7 +1,6 @@
 // Convention plugin specifically for the :frameworks module.
 // Applies base and Spring Boot conventions.
 plugins {
-    id("base-convention")
     id("spring-convention")
 }
 
