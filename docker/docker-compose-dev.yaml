@@ -53,7 +53,7 @@ services:
       # - /var/run/docker.sock:/var/run/docker.sock
     environment:
       # 可选：设置 Jenkins JVM 参数
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Xms512m -Xmx1024m # 跳过初始设置向导，设置内存
+      - JAVA_OPTS=-Duser.language=C.UTF-8 -Xms512m -Xmx1024m # 跳过初始设置向导，设置内存
       # 可选: 预设管理员账号密码 (安全性较低，不如首次登录设置)
       # - JENKINS_ADMIN_ID=admin
       # - JENKINS_ADMIN_PASSWORD=your_strong_password
