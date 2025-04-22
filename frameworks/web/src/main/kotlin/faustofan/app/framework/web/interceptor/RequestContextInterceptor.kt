@@ -1,8 +1,6 @@
 package faustofan.app.framework.web.interceptor
 
-import faustofan.app.framework.web.context.RequestContext
-import faustofan.app.framework.web.context.RequestContext.Companion.setRequestId
-import faustofan.app.framework.web.context.RequestContext.Companion.setStartTime
+import faustofan.app.framework.web.context.UserContext
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
@@ -20,13 +18,8 @@ class RequestContextInterceptor : HandlerInterceptor {
 
 	override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
 
-		RequestContext.getContext().apply {
-			setRequestId(RequestContext.generateRequestId())
-			setStartTime(System.currentTimeMillis())
-		}
-
 		// 打印请求信息
-		logRequestInfo(request, RequestContext.getRequestId()!!)
+		logRequestInfo(request, UserContext.getUserId() ?: "用户ID未设置")
 
 		return true
 	}
@@ -38,26 +31,22 @@ class RequestContextInterceptor : HandlerInterceptor {
 		ex: Exception?
 	) {
 		try {
-			// 计算请求处理时间
-			val requestStartTime = RequestContext.getStartTime()
-			val processingTime = System.currentTimeMillis() - requestStartTime!!
-
 			// 打印响应信息
-			logResponseInfo(request, response, processingTime)
+			logResponseInfo(request, response)
 		} finally {
 			// 清除请求上下文
-			RequestContext.clearContext()
+			UserContext.removeUser()
 		}
 	}
 
 	/**
 	 * 打印请求信息
 	 */
-	private fun logRequestInfo(request: HttpServletRequest, requestId: String) {
+	private fun logRequestInfo(request: HttpServletRequest, userId: String) {
 		val sb = StringBuilder()
 		sb.append("\n")
 			.append("==================== 请求信息 ====================\n")
-			.append("请求ID: ").append(requestId).append("\n")
+			.append("请求ID: ").append(userId).append("\n")
 			.append("请求方法: ").append(request.method).append("\n")
 			.append("请求URL: ").append(request.requestURL).append("\n")
 			.append("请求URI: ").append(request.requestURI).append("\n")
@@ -73,14 +62,14 @@ class RequestContextInterceptor : HandlerInterceptor {
 	/**
 	 * 打印响应信息
 	 */
-	private fun logResponseInfo(request: HttpServletRequest, response: HttpServletResponse, processingTime: Long) {
+	private fun logResponseInfo(request: HttpServletRequest, response: HttpServletResponse) {
 		val sb = StringBuilder()
 		sb.append("\n")
 			.append("==================== 响应信息 ====================\n")
-			.append("请求ID: ").append(RequestContext.getRequestId()).append("\n")
+			.append("用户ID: ").append(UserContext.getUserId()).append("\n")
+			.append("用户名: ").append(UserContext.getUsername()).append("\n")
 			.append("请求URL: ").append(request.requestURL).append("\n")
 			.append("响应状态: ").append(response.status).append("\n")
-			.append("处理时间: ").append(processingTime).append("ms\n")
 			.append("=================================================")
 
 		log.info(sb.toString())

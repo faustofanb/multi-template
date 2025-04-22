@@ -51,7 +51,7 @@ class StringRedisTemplateProxy(
 		timeUnit: TimeUnit,
 		bloomFilter: RBloomFilter<String>?,
 		cacheCheckFilter: ((param: String) -> Boolean)?,
-		cacheGetIfAbsent: ((param: String) -> Void)?
+		cacheGetIfAbsent: ((param: String) -> Unit)?
 	): T? {
 		var result = get(key, clazz)
 		// 缓存结果不等于空或空字符串直接返回
@@ -108,7 +108,7 @@ class StringRedisTemplateProxy(
 	 * @param value 值，可以是任意类型
 	 */
 	override fun put(key: String, value: Any) {
-		put(key, value, Long.MAX_VALUE, redisProperties.valueTimeUnit)
+		put(key, value, Long.MAX_VALUE, redisProperties.valueTimeUnit )
 	}
 
 	/**
@@ -149,7 +149,7 @@ class StringRedisTemplateProxy(
 	 * @param keys 需要检查和设置值的键集合。
 	 * @return 如果所有键都不存在并成功设置了值，则返回true；否则返回false。
 	 */
-	override fun putIfAllAbsent(keys: Collection<String>): Boolean {
+	override fun putIfAllAbsent(keys: List<String>): Boolean {
 		/* 获取Lua脚本，该脚本用于检查所有键是否都不存在并设置它们的值。 */
 		/* 如果脚本尚未加载，则通过指定的路径加载脚本。 */
 		val actual = Singleton.get(LUA_PUT_IF_ALL_ABSENT_SCRIPT_PATH) {
@@ -246,7 +246,7 @@ class StringRedisTemplateProxy(
 		val result = cacheLoader()
 		when {
 			CacheUtil.isNullOrBlank(result) -> return result
-			safeFlag -> safePut(key, result!!, timeout, timeUnit, bloomFilter!!)
+			safeFlag -> safePut(key, result!!, timeout, timeUnit, bloomFilter)
 			else -> put(key, result!!, timeout, timeUnit)
 		}
 		return result

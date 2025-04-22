@@ -28,7 +28,7 @@ interface Cache {
 	 * @param keys 要放入缓存的键的集合。
 	 * @return 如果所有键都不存在且成功放入缓存，则返回true；否则返回false。
 	 */
-	fun putIfAllAbsent(keys: Collection<String>): Boolean
+	fun putIfAllAbsent(keys: List<String>): Boolean
 
 	/**
 	 * 删除缓存中的键值对。

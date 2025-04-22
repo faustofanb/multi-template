@@ -13,10 +13,9 @@ import org.aspectj.lang.ProceedingJoinPoint
  * @param joinPoint AOP切点对象，用于获取当前操作的上下文信息.
  * @param lockKey 用于加锁的键，保证并发下同一操作只执行一次.
  */
-@NoArgConstructor
 data class IdempotentParamWrapper(
-    var idempotent: Idempotent,
-    var joinPoint: ProceedingJoinPoint,
-    var lockKey: String
+    var idempotent: Idempotent? = null,
+    var joinPoint: ProceedingJoinPoint? = null,
+    var lockKey: String? = null
 )
 

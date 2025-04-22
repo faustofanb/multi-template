@@ -1,13 +1,12 @@
 package faustofan.app.framework.web.handler
 
-import faustofan.app.framework.web.context.RequestContext
+import faustofan.app.framework.web.context.UserContext
 import faustofan.app.framework.web.result.CommonResp
 import org.springframework.core.MethodParameter
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.server.ServerHttpRequest
 import org.springframework.http.server.ServerHttpResponse
-import org.springframework.http.server.ServletServerHttpRequest
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
 
@@ -42,7 +41,7 @@ class ResponseBodyAdvice : ResponseBodyAdvice<Any> {
         }
 
         // 获取请求ID
-        val requestId = RequestContext.getRequestId()
+        val requestId = UserContext.getRequestId()
 
         // 包装为CommonResp
         return CommonResp.success(body).copy(

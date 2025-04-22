@@ -1,6 +1,6 @@
 package faustofan.app.framework.web.result
 
-import faustofan.app.framework.web.context.RequestContext
+import faustofan.app.framework.web.context.UserContext
 import faustofan.app.framework.web.enums.ErrorCode
 import faustofan.app.framework.web.exception.AppException
 import faustofan.app.framework.web.exception.ClientException
@@ -12,11 +12,11 @@ import java.time.LocalDateTime
  * @param T 响应数据类型
  */
 data class CommonResp<T>(
-    val code: String,
-    val message: String,
-    val data: T?,
-    val timestamp: LocalDateTime = LocalDateTime.now(),
-    val requestId: String? = RequestContext.getRequestId(),
+	val code: String,
+	val message: String,
+	val data: T?,
+	val timestamp: LocalDateTime = LocalDateTime.now(),
+	val requestId: String? = UserContext.getRequestId(),
 ) {
     companion object {
         /**

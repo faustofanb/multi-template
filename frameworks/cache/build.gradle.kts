@@ -1,6 +1,6 @@
 plugins {
 	id("framework-convention")
-	id("org.jetbrains.kotlin.kapt")
+	id("test-convention")
 }
 
 dependencies {

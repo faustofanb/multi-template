@@ -2,6 +2,7 @@ package faustofan.app.framework.idempotent.handler
 
 import AbstractIdempotentExecuteHandler
 import IdempotentExecuteHandler
+import faustofan.app.framework.cache.DistributedCache
 import faustofan.app.framework.idempotent.config.IdempotentProperties
 import faustofan.app.framework.idempotent.core.IdempotentParamWrapper
 import faustofan.app.framework.web.enums.ErrorCode
@@ -82,7 +83,7 @@ class IdempotentTokenExecuteHandler(
         val tokenDelFlag: Boolean = distributedCache.delete(token) > 0
         if(!tokenDelFlag) {
             // 如果令牌未删除成功，抛出异常
-            val errMsg: String = wrapper.idempotent.message.ifBlank {
+            val errMsg: String = wrapper.idempotent!!.message.ifBlank {
                 "幂等Token删除失败, 请先获取Token"
             }
             throw ClientException(ErrorCode.UNAUTHORIZED.code, errMsg)

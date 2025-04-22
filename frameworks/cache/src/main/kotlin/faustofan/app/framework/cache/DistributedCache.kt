@@ -47,7 +47,7 @@ interface DistributedCache : Cache {
 		timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
 		bloomFilter: RBloomFilter<String>? = null,
 		cacheCheckFilter: ((param: String) -> Boolean)? = null,
-		cacheGetIfAbsent: ((param: String) -> Void)? = null
+		cacheGetIfAbsent: ((param: String) -> Unit)? = null
 	): T?
 
 	/**

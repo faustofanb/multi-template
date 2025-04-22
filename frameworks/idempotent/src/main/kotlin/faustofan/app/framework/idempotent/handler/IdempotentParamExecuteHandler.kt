@@ -6,6 +6,7 @@ import cn.hutool.crypto.digest.DigestUtil
 import com.alibaba.fastjson2.JSON
 import faustofan.app.framework.idempotent.core.IdempotentContext
 import faustofan.app.framework.idempotent.core.IdempotentParamWrapper
+import faustofan.app.framework.web.context.UserContext
 import faustofan.app.framework.web.enums.ErrorCode
 import faustofan.app.framework.web.exception.ClientException
 import org.aspectj.lang.ProceedingJoinPoint

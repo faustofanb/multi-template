@@ -56,6 +56,7 @@ testcontainers = "1.18.3"
 assertj = "3.24.2"
 rest-assured = "5.3.0"
 wiremock = "2.35.0"
+powermock = "2.0.0"
 
 ########################################################################################################################
 [libraries]
@@ -117,18 +118,14 @@ junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", vers
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
-testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
-testcontainers-mysql = { module = "org.testcontainers:mysql", version.ref = "testcontainers" }
-testcontainers-redis = { module = "org.testcontainers:redis", version.ref = "testcontainers" }
+mockito-inline = { module = "org.mockito:mockito-inline", version = "5.2.0" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
-rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "rest-assured" }
-wiremock-jre8 = { module = "com.github.tomakehurst:wiremock-jre8", version.ref = "wiremock" }
+
 
 ########################################################################################################################
 # Libraries can be bundled together for easier import
 [bundles]
-test = ["junit-jupiter", "mockito-core", "mockito-junit-jupiter", "mockito-kotlin", "assertj-core"]
-testcontainers = ["testcontainers-junit-jupiter", "testcontainers-mysql", "testcontainers-redis"]
+test = ["junit-jupiter", "mockito-core", "mockito-junit-jupiter", "mockito-kotlin", "mockito-inline", "assertj-core", "junit-jupiter-api", "junit-jupiter-engine", "junit-jupiter-params"]
 ########################################################################################################################
 [plugins] 
 # 在buildSrc中统一声明了, 并在convention中引用, 这里不再需要

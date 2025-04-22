@@ -1,5 +1,7 @@
 package faustofan.app.framework.web.config
 
+import faustofan.app.framework.common.annotation.FilterOrderConstant.USER_TRANSMIT_FILTER_ORDER
+import faustofan.app.framework.web.context.UserTransmitFilter
 import faustofan.app.framework.web.handler.GlobalExceptionHandler
 import faustofan.app.framework.web.handler.ResponseBodyAdvice
 import faustofan.app.framework.web.interceptor.RateLimitInterceptor
@@ -7,6 +9,7 @@ import faustofan.app.framework.web.interceptor.RequestContextInterceptor
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
+import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
@@ -28,6 +31,19 @@ class WebAutoConfiguration {
 	fun responseBodyAdvice(): ResponseBodyAdvice =
 		ResponseBodyAdvice()
 
+	/**
+	 * 注册一个用户传输过滤器，用于在每个请求中传递用户信息。
+	 *
+	 * @return FilterRegistrationBean<UserTransmitFilter> 对象，用于配置和注册过滤器。
+	 */
+	@Bean
+	fun globalUserTransmitFilter(): FilterRegistrationBean<UserTransmitFilter> {
+		return FilterRegistrationBean<UserTransmitFilter>().apply {
+			filter = UserTransmitFilter()
+			urlPatterns = listOf("/*")
+			order = USER_TRANSMIT_FILTER_ORDER
+		}
+	}
 	/**
 	 * 配置请求上下文拦截器
 	 */

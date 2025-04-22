@@ -1,6 +1,6 @@
 package faustofan.app.framework.web.handler
 
-import faustofan.app.framework.web.context.RequestContext
+import faustofan.app.framework.web.context.UserContext
 import faustofan.app.framework.web.enums.ErrorCode
 import faustofan.app.framework.web.exception.AppException
 import faustofan.app.framework.web.exception.ClientException
@@ -46,9 +46,7 @@ class GlobalExceptionHandler {
 		}
 
 
-		return CommonResp.appError(exception).copy(
-			requestId = RequestContext.getRequestId()
-		)
+		return CommonResp.appError(exception)
 	}
 
 	/**
@@ -58,9 +56,7 @@ class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	fun handleClientException(request: HttpServletRequest, exception: ClientException): CommonResp<Nothing> {
 		logger.warn("客户端异常: {}", exception.message)
-		return CommonResp.clientError(exception).copy(
-			requestId = RequestContext.getRequestId()
-		)
+		return CommonResp.clientError(exception)
 	}
 
 	/**
@@ -70,9 +66,7 @@ class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	fun handleServiceException(request: HttpServletRequest, exception: ServiceException): CommonResp<Nothing> {
 		logger.error("服务端异常: {}", exception.message, exception)
-		return CommonResp.serviceError(exception).copy(
-			requestId = RequestContext.getRequestId()
-		)
+		return CommonResp.serviceError(exception)
 	}
 
 	/**
@@ -90,8 +84,6 @@ class GlobalExceptionHandler {
 			ErrorCode.PARAM_VALIDATION_FAILED.code,
 			"参数校验失败",
 			errors
-		).copy(
-			requestId = RequestContext.getRequestId()
 		)
 	}
 
@@ -110,8 +102,6 @@ class GlobalExceptionHandler {
 			ErrorCode.PARAM_VALIDATION_FAILED.code,
 			"参数绑定失败",
 			errors
-		).copy(
-			requestId = RequestContext.getRequestId()
 		)
 	}
 
@@ -128,8 +118,6 @@ class GlobalExceptionHandler {
 		return CommonResp.error(
 			ErrorCode.INVALID_PARAM.code,
 			"参数类型不匹配: ${exception.name}"
-		).copy(
-			requestId = RequestContext.getRequestId()
 		)
 	}
 
@@ -146,8 +134,6 @@ class GlobalExceptionHandler {
 		return CommonResp.error(
 			ErrorCode.MISSING_REQUIRED_PARAM.code,
 			"缺少请求参数: ${exception.parameterName}"
-		).copy(
-			requestId = RequestContext.getRequestId()
 		)
 	}
 
@@ -164,8 +150,6 @@ class GlobalExceptionHandler {
 		return CommonResp.error(
 			ErrorCode.METHOD_NOT_ALLOWED.code,
 			"请求方法不支持: ${exception.method}"
-		).copy(
-			requestId = RequestContext.getRequestId()
 		)
 	}
 
@@ -182,8 +166,6 @@ class GlobalExceptionHandler {
 		return CommonResp.error(
 			ErrorCode.NOT_FOUND.code,
 			"请求资源不存在: ${exception.requestURL}"
-		).copy(
-			requestId = RequestContext.getRequestId()
 		)
 	}
 
@@ -200,8 +182,6 @@ class GlobalExceptionHandler {
 		return CommonResp.error(
 			ErrorCode.INVALID_PARAM.code,
 			"请求体不可读"
-		).copy(
-			requestId = RequestContext.getRequestId()
 		)
 	}
 
@@ -218,8 +198,6 @@ class GlobalExceptionHandler {
 		return CommonResp.error(
 			ErrorCode.USER_UPLOAD_FILE_SIZE_ERROR.code,
 			"文件上传大小超限"
-		).copy(
-			requestId = RequestContext.getRequestId()
 		)
 	}
 
@@ -241,9 +219,7 @@ class GlobalExceptionHandler {
 			exception
 		)
 
-		return CommonResp.error(ErrorCode.SYSTEM_ERROR.code, sanitizedMessage).copy(
-			requestId = RequestContext.getRequestId()
-		)
+		return CommonResp.error(ErrorCode.SYSTEM_ERROR.code, sanitizedMessage)
 	}
 
 } 

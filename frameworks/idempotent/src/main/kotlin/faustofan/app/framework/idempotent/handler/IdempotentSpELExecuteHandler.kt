@@ -3,6 +3,7 @@ package faustofan.app.framework.idempotent.handler
 import AbstractIdempotentExecuteHandler
 import IdempotentExecuteHandler
 import LogUtil
+import faustofan.app.framework.cache.DistributedCache
 import faustofan.app.framework.idempotent.aspect.IdempotentAspect
 import faustofan.app.framework.idempotent.core.IdempotentContext
 import faustofan.app.framework.idempotent.core.IdempotentParamWrapper
@@ -56,7 +57,7 @@ class IdempotentSpELByRestAPIExecuteHandler(
      * @param wrapper 包含了锁键和切点的包装器
      */
     override fun handler(wrapper: IdempotentParamWrapper) {
-        val uniqueKey = wrapper.idempotent.uniqueKeyPrefix + wrapper.lockKey
+        val uniqueKey = wrapper.idempotent!!.uniqueKeyPrefix + wrapper.lockKey
         val lock = redissonClient.getLock(uniqueKey)
         if(!lock.tryLock())
             throw ClientException(ErrorCode.TOO_MANY_REQUESTS.code, "缓存锁获取异常, 请稍后再试...")
@@ -117,14 +118,14 @@ class IdempotentSpELByMQExecuteHandler(
      * 如果检测到重复消费，则抛出异常；否则，将幂等性参数包装器存入上下文中
      */
     override fun handler(wrapper: IdempotentParamWrapper) {
-        val uniqueKey = wrapper.idempotent.uniqueKeyPrefix + wrapper.lockKey
+        val uniqueKey = wrapper.idempotent!!.uniqueKeyPrefix + wrapper.lockKey
         val setIfAbsent = (distributedCache.getInstance() as StringRedisTemplate)
             .opsForValue()
             .setIfAbsent(uniqueKey, IdempotentMQConsumeStatusEnum.CONSUMING.code)
         if(setIfAbsent != null && !setIfAbsent) {
             val consumeStatus = distributedCache.get(uniqueKey, String::class.java)
             val error = IdempotentMQConsumeStatusEnum.isError(consumeStatus!!)
-            LogUtil.getLog(wrapper.joinPoint).warn(
+            LogUtil.getLog(wrapper.joinPoint!!).warn(
                 "[$uniqueKey] MQ repeated consumption, " +
                 "${if (error) "Wait for the client to delay consumption" else "Status is completed"}."
             )
@@ -140,11 +141,11 @@ class IdempotentSpELByMQExecuteHandler(
     override fun exceptionProcessing() {
         val wrapper = IdempotentContext.getKey(WRAPPER) as IdempotentParamWrapper
         val idempotent = wrapper.idempotent
-        val uniqueKey = idempotent.uniqueKeyPrefix + wrapper.lockKey
+        val uniqueKey = idempotent!!.uniqueKeyPrefix + wrapper.lockKey
         try {
             distributedCache.delete(uniqueKey)
         } catch (ex: Throwable) {
-            LogUtil.getLog(wrapper.joinPoint).error("[$uniqueKey] Failed to del MQ anti-heavy token.")
+            LogUtil.getLog(wrapper.joinPoint!!).error("[$uniqueKey] Failed to del MQ anti-heavy token.")
         }
     }
 
@@ -158,7 +159,7 @@ class IdempotentSpELByMQExecuteHandler(
     override fun postProcessing() {
         val wrapper = IdempotentContext.getKey(WRAPPER) as IdempotentParamWrapper
         val idempotent = wrapper.idempotent
-        val uniqueKey = idempotent.uniqueKeyPrefix + wrapper.lockKey
+        val uniqueKey = idempotent!!.uniqueKeyPrefix + wrapper.lockKey
         try {
             distributedCache.put(
                 uniqueKey,

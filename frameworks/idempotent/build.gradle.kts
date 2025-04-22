@@ -8,6 +8,7 @@ dependencies {
     implementation(project(":frameworks:base"))
     implementation(project(":frameworks:common"))
     implementation(project(":frameworks:web"))
+    implementation(project(":frameworks:cache"))
 
     // Spring Boot
     implementation(libs.spring.boot.starter.web)

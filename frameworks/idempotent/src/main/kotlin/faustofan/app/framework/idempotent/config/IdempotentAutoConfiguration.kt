@@ -1,6 +1,6 @@
 package faustofan.app.framework.idempotent.config
 
-import IdempotentProperties
+import faustofan.app.framework.cache.DistributedCache
 import faustofan.app.framework.idempotent.aspect.IdempotentAspect
 import faustofan.app.framework.idempotent.controller.IdempotentTokenController
 import faustofan.app.framework.idempotent.handler.*
