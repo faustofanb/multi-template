@@ -40,12 +40,12 @@ class ResponseBodyAdvice : ResponseBodyAdvice<Any> {
             return body
         }
 
-        // 获取请求ID
+        // 获取用户ID
         val requestId = UserContext.getRequestId()
 
         // 包装为CommonResp
         return CommonResp.success(body).copy(
-            requestId = requestId
+            requestId = requestId.toString()
         )
     }
 } 

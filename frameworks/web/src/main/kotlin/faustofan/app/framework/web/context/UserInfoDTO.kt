@@ -6,12 +6,12 @@ package faustofan.app.framework.web.context
  *
  * @param userId 用户的唯一标识符，可能为空。
  * @param username 用户的登录名，可能为空。
- * @param realName 用户的真实姓名，可能为空。
+ * @param requestId 请求ID。
  * @param token 用户的认证令牌，用于身份验证，可能为空。
  */
 data class UserInfoDTO(
 	val userId: String? = null,
 	val username: String? = null,
-	val realName: String? = null,
+	val requestId: Long? = null,
 	val token: String? = null
 )

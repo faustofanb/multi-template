@@ -1,6 +1,7 @@
 package faustofan.app.framework.web.interceptor
 
 import faustofan.app.framework.web.context.UserContext
+import faustofan.app.framework.web.util.SnowflakeIdGenerator
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
@@ -17,9 +18,8 @@ class RequestContextInterceptor : HandlerInterceptor {
 	private val log = LoggerFactory.getLogger(RequestContextInterceptor::class.java)
 
 	override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-
 		// 打印请求信息
-		logRequestInfo(request, UserContext.getUserId() ?: "用户ID未设置")
+		logRequestInfo(request, UserContext.getRequestId(), UserContext.getUserId() ?: "用户ID未设置")
 
 		return true
 	}
@@ -42,11 +42,12 @@ class RequestContextInterceptor : HandlerInterceptor {
 	/**
 	 * 打印请求信息
 	 */
-	private fun logRequestInfo(request: HttpServletRequest, userId: String) {
+	private fun logRequestInfo(request: HttpServletRequest, requestId: Long, userId: String) {
 		val sb = StringBuilder()
 		sb.append("\n")
 			.append("==================== 请求信息 ====================\n")
-			.append("请求ID: ").append(userId).append("\n")
+			.append("请求ID: ").append(requestId).append("\n")
+			.append("用户ID: ").append(userId).append("\n")
 			.append("请求方法: ").append(request.method).append("\n")
 			.append("请求URL: ").append(request.requestURL).append("\n")
 			.append("请求URI: ").append(request.requestURI).append("\n")

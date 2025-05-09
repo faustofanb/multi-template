@@ -1,6 +1,8 @@
 package faustofan.app.framework.web.context
 
 import com.alibaba.ttl.TransmittableThreadLocal
+import faustofan.app.framework.web.enums.ErrorCode
+import faustofan.app.framework.web.exception.ServiceException
 
 
 /**
@@ -50,8 +52,9 @@ object UserContext {
      *
      * @return 当前线程所绑定的用户的真名，如果用户未设置或已移除，则返回null。
      */
-    fun getRealName(): String? {
-        return USER_THREAD_LOCAL.get()?.realName
+    fun getRequestId(): Long {
+        return USER_THREAD_LOCAL.get()?.requestId
+            ?: throw ServiceException(ErrorCode.SYSTEM_RESOURCE_ERROR.code, "服务器异常: 请求ID生成异常")
     }
 
     /**

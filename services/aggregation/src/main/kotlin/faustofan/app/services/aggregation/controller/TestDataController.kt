@@ -48,6 +48,7 @@ class TestDataController(private val testDataService: TestDataService) {
         ),
         ApiResponse(responseCode = "404", description = "未找到指定 ID 的数据", content = [Content()])
     ])
+
     @GetMapping("/{id}")
     fun getTestDataById(
         @Parameter(description = "要获取的数据的 ID", required = true, example = "1")

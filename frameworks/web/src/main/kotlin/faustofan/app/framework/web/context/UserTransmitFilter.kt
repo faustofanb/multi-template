@@ -1,16 +1,17 @@
 package faustofan.app.framework.web.context
 
-import faustofan.app.framework.common.constant.UserConstant.REAL_NAME_KEY
+import faustofan.app.framework.common.constant.UserConstant.DEFAULT_USER_ID
+import faustofan.app.framework.common.constant.UserConstant.DEFAULT_USER_NAME
 import faustofan.app.framework.common.constant.UserConstant.USER_ID_KEY
 import faustofan.app.framework.common.constant.UserConstant.USER_NAME_KEY
 import faustofan.app.framework.common.constant.UserConstant.USER_TOKEN_KEY
+import faustofan.app.framework.web.util.SnowflakeIdGenerator
 import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletRequest
 import jakarta.servlet.ServletResponse
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.stereotype.Component
-import java.net.URLDecoder
 
 /**
  * 用户传输过滤器，用于在请求传递过程中提取和处理用户相关信息。
@@ -21,8 +22,7 @@ class UserTransmitFilter : Filter {
 
 	/**
 	 * 执行过滤操作。
-	 * 当请求通过此过滤器时，会尝试从请求头中提取用户ID、用户名、真实姓名和用户令牌。
-	 * 如果用户ID不存在，但提供了用户名或真实姓名，尝试解码这些信息，并设置到用户上下文中。
+	 * 当请求通过此过滤器时，会尝试从请求头中提取用户ID、用户名、和用户令牌。
 	 * 这确保了后续的处理链能够访问到用户的相关信息。
 	 *
 	 * @param request  Servlet请求对象，用于提取用户信息。
@@ -34,27 +34,18 @@ class UserTransmitFilter : Filter {
 		val httpServletRequest = request as HttpServletRequest
 		// 从请求头中提取用户ID。
 		val userId = httpServletRequest.getHeader(USER_ID_KEY)
-		// 如果用户ID不存在，则尝试从请求头中提取用户名和真实姓名。
-		if (userId.isNullOrEmpty()) {
-			var username = httpServletRequest.getHeader(USER_NAME_KEY)
-			var realname = httpServletRequest.getHeader(REAL_NAME_KEY)
-			// 如果用户名或真实姓名存在且不是空白，尝试解码这些信息。
-			when {
-				username.isNotBlank() -> username = URLDecoder.decode(username, "UTF-8")
-				realname.isNotBlank() -> realname = URLDecoder.decode(realname, "UTF-8")
-			}
-			// 从请求头中提取用户令牌。
-			val token = httpServletRequest.getHeader(USER_TOKEN_KEY)
-			// 将提取到的用户信息设置到用户上下文中。
-			UserContext.setUser(
-				UserInfoDTO(
-					userId,
-					username,
-					realname,
-					token
-				)
+		val username = httpServletRequest.getHeader(USER_NAME_KEY)
+		// 从请求头中提取用户令牌。
+		val token = httpServletRequest.getHeader(USER_TOKEN_KEY)
+		// 将提取到的用户信息设置到用户上下文中。
+		UserContext.setUser(
+			UserInfoDTO(
+				userId ?: DEFAULT_USER_ID,
+				username ?: DEFAULT_USER_NAME,
+				SnowflakeIdGenerator.getInstance().nextId(),
+				token
 			)
-		}
+		)
 		try {
 			// 继续请求处理链。
 			chain.doFilter(request, response)

@@ -65,3 +65,44 @@ class FastJson2UtilTest {
 }
 
 class TestObject(val value: String) 
+fun buildType(vararg types: Type): Type? {
+	if (types.isEmpty()) {
+		return null
+	}
+	
+	if (types.size == 1) {
+		// For single type, return the type directly
+		return types[0]
+	}
+	
+	// For generic types (e.g., List<String>)
+	if (types.size == 2) {
+		return ParameterizedTypeImpl(
+			arrayOf(types[1]),  // Actual type argument
+			null,
+			types[0]  // Raw type
+		)
+	}
+	
+	// For complex generic types (e.g., Map<String, List>)
+	if (types.size == 3) {
+		return ParameterizedTypeImpl(
+			arrayOf(types[1], types[2]),  // Multiple type arguments
+			null,
+			types[0]  // Raw type
+		)
+	}
+	
+	// For more complex nested generic types, build it according to test expectations
+	// by handling each level of nesting appropriately
+	val actualTypeArguments = mutableListOf<Type>()
+	for (i in 1 until types.size) {
+		actualTypeArguments.add(types[i])
+	}
+	
+	return ParameterizedTypeImpl(
+		actualTypeArguments.toTypedArray(),
+		null,
+		types[0]
+	)
+}

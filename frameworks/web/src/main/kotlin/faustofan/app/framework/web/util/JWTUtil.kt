@@ -1,7 +1,6 @@
 package faustofan.app.framework.web.util
 
 import com.alibaba.fastjson2.JSON
-import faustofan.app.framework.common.constant.UserConstant.REAL_NAME_KEY
 import faustofan.app.framework.common.constant.UserConstant.USER_ID_KEY
 import faustofan.app.framework.common.constant.UserConstant.USER_NAME_KEY
 import faustofan.app.framework.web.context.UserInfoDTO
@@ -44,7 +43,6 @@ object JWTUtil {
 					hashMapOf(
 						USER_ID_KEY to userInfo.userId,
 						USER_NAME_KEY to userInfo.username,
-						REAL_NAME_KEY to userInfo.realName
 					)
 				)
 			)
@@ -67,7 +65,7 @@ object JWTUtil {
 				if (expiration.after(Date())) {
 					return JSON.parseObject(claims.subject, UserInfoDTO::class.java)
 				}
-			} catch (ignored: ExpiredJwtException) {
+			} catch (_: ExpiredJwtException) {
 
 			} catch (ex: Exception) {
 				log.error("JWT Token解析失败，请检查", ex)

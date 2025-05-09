@@ -1,6 +1,5 @@
 package faustofan.app.framework.web.handler
 
-import faustofan.app.framework.web.context.UserContext
 import faustofan.app.framework.web.enums.ErrorCode
 import faustofan.app.framework.web.exception.AppException
 import faustofan.app.framework.web.exception.ClientException

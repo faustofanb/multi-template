@@ -16,7 +16,7 @@ data class CommonResp<T>(
 	val message: String,
 	val data: T?,
 	val timestamp: LocalDateTime = LocalDateTime.now(),
-	val requestId: String? = UserContext.getRequestId(),
+	val requestId: String? = UserContext.getRequestId().toString(),
 ) {
     companion object {
         /**
