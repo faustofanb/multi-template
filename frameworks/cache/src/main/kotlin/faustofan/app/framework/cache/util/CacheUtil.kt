@@ -33,6 +33,10 @@ object CacheUtil {
 	 */
 	fun isNullOrBlank(cacheVal: Any?): Boolean {
 		// 返回缓存值为空或者为空白字符串的判断结果
-		return cacheVal == null || (cacheVal is String && cacheVal.isBlank())
+		return cacheVal == null
+				|| (cacheVal is String && cacheVal.isBlank())
+				|| (cacheVal is Collection<*> && cacheVal.isEmpty())
+				|| (cacheVal is Map<*, *> && cacheVal.isEmpty())
+				|| (cacheVal is Array<*> && cacheVal.isEmpty())
 	}
 }

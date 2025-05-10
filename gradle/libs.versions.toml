@@ -61,7 +61,7 @@ powermock = "2.0.0"
 ########################################################################################################################
 [libraries]
 # Spring 核心依赖
-spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot"}
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop", version.ref = "spring-boot" }
 spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor", version.ref = "spring-boot" }
@@ -120,14 +120,25 @@ mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 mockito-inline = { module = "org.mockito:mockito-inline", version = "5.2.0" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
-
+mockk = { module = "io.mockk:mockk", version = "1.13.5" }
 
 ########################################################################################################################
 # Libraries can be bundled together for easier import
 [bundles]
-test = ["junit-jupiter", "mockito-core", "mockito-junit-jupiter", "mockito-kotlin", "mockito-inline", "assertj-core", "junit-jupiter-api", "junit-jupiter-engine", "junit-jupiter-params"]
+test = [
+    "junit-jupiter",
+    "mockito-core",
+    "mockito-junit-jupiter",
+    "mockito-kotlin",
+    "mockito-inline",
+    "assertj-core",
+    "junit-jupiter-api",
+    "junit-jupiter-engine",
+    "junit-jupiter-params",
+    "mockk",
+]
 ########################################################################################################################
-[plugins] 
+[plugins]
 # 在buildSrc中统一声明了, 并在convention中引用, 这里不再需要
 # 核心插件
 # spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
